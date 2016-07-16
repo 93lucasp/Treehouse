@@ -19,7 +19,7 @@ var quotes = [
 		source: "Muhammad Ali",
 	},
 	{
-		quote: "Life's not about how hard of a hit you can give... it's about how many you can take, and still keep moving forward.",
+		quote: "Life's not about how hard of a hit you can give... It's about how many you can take, and still keep moving forward.",
 		source: "Sylvester Stallone",
 		citation: "Rocky Balboa",
 		year: 1976
@@ -46,14 +46,17 @@ function getRandomColor() {
     }
     document.body.style.backgroundColor = color;
 }
-
+var random;
 function getRandomQuote() {
-	var random = Math.floor(Math.random() * quotes.length);
+	random = Math.floor(Math.random() * quotes.length);
 	return quotes[random];
+
 }
+
 function printQuote(){
 	var quoteToPrint = getRandomQuote();
-	// console.log(quoteToPrint);
+	console.log(quotes.length);
+	if (quotes.length > 0) {
 	var quoteRandom = "<p class='quote'>" + quoteToPrint.quote + "</p>";
 	quoteRandom += "<p class='source'>" + quoteToPrint.source;
 	if (quoteToPrint.citation){
@@ -72,6 +75,12 @@ function printQuote(){
 	}
 	document.getElementById('quote-box').innerHTML = quoteRandom;
 	getRandomColor();
-	
+	quotes.splice(random, 1);
+	}
+	else {
+		document.getElementById('quote-box').innerHTML = "<h1 style='text-align: center;'>"+ '"All the quotes have been displayed"' + "</h1>";
+	}
 
 }
+var count = 0;
+var intervallo = setInterval(function(){ printQuote(); count++; if (count === 9) { clearInterval(intervallo); return;}}, 1000);
