@@ -37,25 +37,36 @@ var quotes = [
 		source: "Anonymus",
 	}
 ];
-function getRandomColor() {
+/* Change background color*/ 
+function changeBackgroundColor() {
     var letters = '0123456789ABCDEF'.split('');
     var color = '#';
+    /* Choosing 6 items between the array : letters and 
+	   adding it to the string: color */
     for (var i = 0; i < 6; i++ ) {
     	var randomColor = letters[Math.floor(Math.random() * letters.length)];
         color += randomColor;
     }
+    /* Change the background color in the css to the random color of the function 
+       that will be an hexadecimal color */
     document.body.style.backgroundColor = color;
 }
-var random;
-function getRandomQuote() {
-	random = Math.floor(Math.random() * quotes.length);
-	return quotes[random];
 
+var random;
+
+/* Getting a random quote */
+function getRandomQuote() {
+	// Getting a random number between 0 and quotes.length
+	random = Math.floor(Math.random() * quotes.length);
+	// Returning a random quote of the array: quotes
+	return quotes[random];
 }
 
+/* Printing the random quote */
 function printQuote(){
+	// Assigning to the quoteToPrint variable the random quote
 	var quoteToPrint = getRandomQuote();
-	console.log(quotes.length);
+	// Condition to be sure that quotes is not empty and after assigning the HTML
 	if (quotes.length > 0) {
 	var quoteRandom = "<p class='quote'>" + quoteToPrint.quote + "</p>";
 	quoteRandom += "<p class='source'>" + quoteToPrint.source;
@@ -73,14 +84,27 @@ function printQuote(){
 	else {
 		quoteRandom += "</p>";
 	}
+	// Wwriting inside the quote-box element my HTML defined before
 	document.getElementById('quote-box').innerHTML = quoteRandom;
-	getRandomColor();
+	// Calling the function to change the backgroung color
+	changeBackgroundColor();
+	// Removing from the quotes array the last quote displayed
 	quotes.splice(random, 1);
 	}
+	// When the quotes array is empty show the following message
 	else {
 		document.getElementById('quote-box').innerHTML = "<h1 style='text-align: center;'>"+ '"All the quotes have been displayed"' + "</h1>";
 	}
 
 }
+// Getting a different quote every 30 seconds
 var count = 0;
-var intervallo = setInterval(function(){ printQuote(); count++; if (count === 9) { clearInterval(intervallo); return;}}, 1000);
+var intervallo = setInterval( function(){ 
+	printQuote(); 
+	count++; 
+	// After display: "All the quotes have been displayed" breaking interval.
+	if (count === 9) { 
+		clearInterval(intervallo); 
+		return;
+	}
+}, 30000);
